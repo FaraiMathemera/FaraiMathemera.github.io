@@ -775,7 +775,7 @@
 
 ### Enhancements
 
-* Add translation key for "Recent Posts" used in home page `index.html`. [#316](https://github.com/mmistakes/minimal-mistakes/pull/316)
+* Add translation key for "Recent Posts" used in home page `projects.html`. [#316](https://github.com/mmistakes/minimal-mistakes/pull/316)
 
 ### Maintenance
 
@@ -887,7 +887,7 @@
 
 * Add optional CodePen icon/url to author side bar [#156](https://github.com/mmistakes/minimal-mistakes/pull/156)
 * Documented Stackoverflow username explanation in `_config.yml` [#157](https://github.com/mmistakes/minimal-mistakes/pull/157)
-* Simplified Liquid in `post-index.html` to better handle year listings [#166](https://github.com/mmistakes/minimal-mistakes/pull/166)
+* Simplified Liquid in `post-projects.html` to better handle year listings [#166](https://github.com/mmistakes/minimal-mistakes/pull/166)
 
 ### Bug Fixes
 
