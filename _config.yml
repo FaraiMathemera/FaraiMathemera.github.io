@@ -84,10 +84,10 @@ analytics:
 
 # Site Author
 author:
-  name             : "Your Name"
+  name             : "Farai Mathemera"
   avatar           : "/img/profile.jpg" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
   bio              : "Data Science Portfolio"
-  location         : "Cape Towm, Harare"
+  location         : "Cape Town, Harare"
   email            : "mathemerafarai@gmail.com"
   uri              :
   home             : # null (default), "absolute or relative url to link to author home"
