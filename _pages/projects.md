@@ -1,5 +1,5 @@
 ---
-layout: posts
+layout: gallery
 permalink: /projects/
 title: "Personal Projects"
 author_profile: true
