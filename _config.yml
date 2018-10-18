@@ -85,7 +85,7 @@ analytics:
 # Site Author
 author:
   name             : "Farai Mathemera"
-  avatar           : "/img/profile.jpg" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
+  avatar           : "/images/profile.jpg" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
   bio              : "Data Science Portfolio"
   location         : "Cape Town, Harare"
   email            : "mathemerafarai@gmail.com"
