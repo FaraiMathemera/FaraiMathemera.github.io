@@ -5,7 +5,7 @@ main:
   - title: "Projects"
     url: /projects/
   - title: "About"
-    url: resume/about.html
+    url: resume/index.html
   # - title: "About"
   #   url: https://mmistakes.github.io/minimal-mistakes/about/
   # - title: "Sample Posts"
