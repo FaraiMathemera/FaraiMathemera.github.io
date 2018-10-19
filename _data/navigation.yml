@@ -1,7 +1,7 @@
 # main links
 main:
   - title: "Websites"
-    url: /projects/website.html
+    url: /websites/
   - title: "Projects"
     url: /projects/
   - title: "About"
