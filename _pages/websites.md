@@ -1,5 +1,5 @@
 ---
-layout: posts
+layout: gallery
 title: "Websites"
 permalink: /websites/
 header:
