@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ site.locale | slice: 0,2 | default: "en" }}" class="no-js">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Portfolio of Yiotis Kaltsikis, Front End Developer based in Berlin, Germany">
     <meta name="keywords" content="HTML5, CSS3, JavaScript, web, design, development, websites, sites, portfolio, responsive, Yiotis Kaltsikis, front end, Giotis">
-    <title>Yiotis Kaltsikis | Front End Developer</title>
+    <title>Farai Mathemera - Website Gallery</title>
 
     <link rel="shortcut icon" href="/favicon-1024.png" type="image/x-icon">
     <link rel="icon" href="/favicon-1024.png" type="image/x-icon">
@@ -14,12 +14,16 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <link href="ext/css/ionicons.min.css" rel="stylesheet">
     <link href="res/css/styles.css" rel="stylesheet">
+	
+	    {% include head.html %}
+    {% include head/custom.html %}
 
 </head>
 
 <body data-spy="scroll" data-target="#main-nav">
 
-   
+   {% include browser-upgrade.html %}
+    {% include masthead.html %}
 
     <div class="container-fluid">
 
