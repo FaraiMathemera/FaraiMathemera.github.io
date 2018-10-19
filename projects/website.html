@@ -85,11 +85,7 @@
         
 
         <!-- Footer -->
-        <div class="row dark-container">
-            <footer class="footer-main">
-                <p>Designed by Yiotis Kaltsikis &mdash; 2016 &copy;</p>
-            </footer>
-        </div>
+        <div class="page__footer-copyright">&copy; {{ site.time | date: '%Y' }} {{ site.name | default: site.title }}. {{ site.data.ui-text[site.locale].powered_by | default: "Powered by" }} <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
 
     </div>
 
@@ -103,5 +99,5 @@
     <script src="res/js/app.js"></script>
 
 </body>
-<div class="page__footer-copyright">&copy; {{ site.time | date: '%Y' }} {{ site.name | default: site.title }}. {{ site.data.ui-text[site.locale].powered_by | default: "Powered by" }} <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
 </html>
