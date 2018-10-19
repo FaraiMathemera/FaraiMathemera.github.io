@@ -1,18 +1,27 @@
 {
-  "name": "minimal-mistakes",
+  "name": "Farai Mathemera",
   "version": "4.9.0",
-  "description": "Minimal Mistakes Jekyll theme npm build scripts",
+  "description": "Portfolio of Farai Mathemera, Developer and Data Scientist based in Cape Town",
   "repository": {
     "type": "git",
-    "url": "git://github.com/mmistakes/minimal-mistakes.git"
+    "url": "git+https://github.com/FaraiMathemera/FaraiMathemera.github.io"
   },
-  "keywords": ["jekyll", "theme", "minimal"],
-  "author": "Michael Rose",
+  "keywords": [
+    "Front-end",
+    "Mathemera",
+    "Farai",
+    "Data Science",
+    "Portfolio",
+    "Software Engineer",
+	"Programmer",
+	"Computer Scientist"
+  ],
+  "author": "Farai Mathemera",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mmistakes/minimal-mistakes/issues"
+    "url": "https://github.com/FaraiMathemera/FaraiMathemera.github.io/issues"
   },
-  "homepage": "https://mmistakes.github.io/minimal-mistakes/",
+  "homepage": "https://github.com/FaraiMathemera/FaraiMathemera.github.io#readme",
   "engines": {
     "node": ">= 0.10.0"
   },
