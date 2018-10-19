@@ -1,7 +1,7 @@
 {
-  "name": "giotiskl.github.io",
+  "name": "faraimathemera.github.io",
   "version": "1.0.0",
-  "description": "Portfolio of Yiotis Kaltsikis, Front End Developer based in Berlin, Germany",
+  "description": "Portfolio of Farai Mathemera, Developer and Data Scientist based in Cape Town",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -9,20 +9,22 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/giotiskl/giotiskl.github.io.git"
+    "url": "git+https://github.com/FaraiMathemera/FaraiMathemera.github.io"
   },
   "keywords": [
-    "frontend",
-    "yiotis",
-    "kaltsikis",
-    "personal",
-    "portfolio",
-    "filterizr"
+    "Front-end",
+    "Mathemera",
+    "Farai",
+    "Data Science",
+    "Portfolio",
+    "Software Engineer",
+	"Programmer",
+	"Computer Scientist"
   ],
-  "author": "Yiotis Kaltsikis",
+  "author": "Farai Mathemera",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/giotiskl/giotiskl.github.io/issues"
+    "url": "https://github.com/FaraiMathemera/FaraiMathemera.github.io/issues"
   },
-  "homepage": "https://github.com/giotiskl/giotiskl.github.io#readme"
+  "homepage": "https://github.com/FaraiMathemera/FaraiMathemera.github.io#readme"
 }
