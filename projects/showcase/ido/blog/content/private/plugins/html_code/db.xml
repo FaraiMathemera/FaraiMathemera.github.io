@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<plugin name="HTML code" author="Diego Najar" version="3.7" installed_at="1524143520"><position type="integer">4</position><title type="string">HTML code</title><code type="string">&lt;p&gt;Hello world!&lt;/p&gt;</code></plugin>
