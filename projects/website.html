@@ -15,12 +15,12 @@
     <link href="ext/css/ionicons.min.css" rel="stylesheet">
     <link href="res/css/styles.css" rel="stylesheet">
 	
-	    {% include head.html %}
+	{% include head.html %}
     {% include head/custom.html %}
 
 </head>
 
-<body data-spy="scroll" data-target="#main-nav">
+<body data-spy="scroll" data-target="#main-nav" class="layout--{{ page.layout | default: layout.layout }}{% if page.classes or layout.classes %}{{ page.classes | default: layout.classes | join: ' ' | prepend: ' ' }}{% endif %}">
 
    {% include browser-upgrade.html %}
     {% include masthead.html %}
