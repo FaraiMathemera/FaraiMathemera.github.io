@@ -4,7 +4,7 @@ date: 2018-10-24
 tags: [machine learning, data science, kaggle]
 header:
   image: "/images/titanic/header.jpg"
-excerpt: "Machine Learning, Data Science"
+excerpt: "Machine Learning, Data Science, Kaggle"
 mathjax: "true"
 ---
 
