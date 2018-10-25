@@ -4,6 +4,6 @@ permalink: /projects/
 title: "Personal Projects"
 author_profile: true
 header:
-  image: "/images/fort point.png"
+  image: "/images/fortpoint.jpg"
 ---
 
