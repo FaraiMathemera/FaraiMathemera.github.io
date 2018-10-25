@@ -1,10 +1,10 @@
 ---
 title: "Machine Learning Project: Perceptron"
-date: 2018-01-28
-tags: [machine learning, data science, neural network]
+date: 2018-10-24
+tags: [machine learning, data science, kaggle]
 header:
   image: "/images/perceptron/percept.jpg"
-excerpt: "Machine Learning, Perceptron, Data Science"
+excerpt: "Machine Learning, Data Science"
 mathjax: "true"
 ---
 
