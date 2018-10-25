@@ -1,0 +1,1302 @@
+---
+title: "Data Analysis: Game of Thrones (Fun)"
+date: 2018-10-24
+tags: [data analysis, data science, kaggle, Game of Thrones]
+header:
+  image: "/images/got/header.jpg"
+excerpt: "data analysis, Data Science, Game of Thrones"
+mathjax: "true"
+---
+# Game of Thrones
+
+I happened to bump into a Game of Thrones data set and decided it would interesting to see what was going on there.
+I recently watched the seasons 1 - 7, under duress at first. But slowly realised the genius and brilliance of George RR Martin.
+
+
+```python
+import numpy as np # linear algebra
+import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)
+import seaborn as sn # data visualization
+import matplotlib.pyplot as ml # data visualisation as well
+import warnings
+
+
+sn.set(color_codes = True, style="white")
+battles = pd.read_csv("battles.csv", sep=",", header=0)
+deaths = pd.read_csv("character-deaths.csv", sep=",", header=0)
+predictions = pd.read_csv("character-predictions.csv", sep=",", header=0)
+```
+
+We look at the basic shape of the data sets
+
+
+```python
+battles.shape
+```
+
+
+
+
+    (38, 25)
+
+
+
+
+```python
+deaths.shape
+```
+
+
+
+
+    (917, 13)
+
+
+
+
+```python
+predictions.shape
+```
+
+
+
+
+    (1946, 33)
+
+
+
+Lets have a peek at what we are working with.
+
+
+```python
+battles.head()
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>name</th>
+      <th>year</th>
+      <th>battle_number</th>
+      <th>attacker_king</th>
+      <th>defender_king</th>
+      <th>attacker_1</th>
+      <th>attacker_2</th>
+      <th>attacker_3</th>
+      <th>attacker_4</th>
+      <th>defender_1</th>
+      <th>...</th>
+      <th>major_death</th>
+      <th>major_capture</th>
+      <th>attacker_size</th>
+      <th>defender_size</th>
+      <th>attacker_commander</th>
+      <th>defender_commander</th>
+      <th>summer</th>
+      <th>location</th>
+      <th>region</th>
+      <th>note</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Battle of the Golden Tooth</td>
+      <td>298</td>
+      <td>1</td>
+      <td>Joffrey/Tommen Baratheon</td>
+      <td>Robb Stark</td>
+      <td>Lannister</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Tully</td>
+      <td>...</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>15000.0</td>
+      <td>4000.0</td>
+      <td>Jaime Lannister</td>
+      <td>Clement Piper, Vance</td>
+      <td>1.0</td>
+      <td>Golden Tooth</td>
+      <td>The Westerlands</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Battle at the Mummer's Ford</td>
+      <td>298</td>
+      <td>2</td>
+      <td>Joffrey/Tommen Baratheon</td>
+      <td>Robb Stark</td>
+      <td>Lannister</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Baratheon</td>
+      <td>...</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>120.0</td>
+      <td>Gregor Clegane</td>
+      <td>Beric Dondarrion</td>
+      <td>1.0</td>
+      <td>Mummer's Ford</td>
+      <td>The Riverlands</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Battle of Riverrun</td>
+      <td>298</td>
+      <td>3</td>
+      <td>Joffrey/Tommen Baratheon</td>
+      <td>Robb Stark</td>
+      <td>Lannister</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Tully</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>15000.0</td>
+      <td>10000.0</td>
+      <td>Jaime Lannister, Andros Brax</td>
+      <td>Edmure Tully, Tytos Blackwood</td>
+      <td>1.0</td>
+      <td>Riverrun</td>
+      <td>The Riverlands</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Battle of the Green Fork</td>
+      <td>298</td>
+      <td>4</td>
+      <td>Robb Stark</td>
+      <td>Joffrey/Tommen Baratheon</td>
+      <td>Stark</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Lannister</td>
+      <td>...</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>18000.0</td>
+      <td>20000.0</td>
+      <td>Roose Bolton, Wylis Manderly, Medger Cerwyn, H...</td>
+      <td>Tywin Lannister, Gregor Clegane, Kevan Lannist...</td>
+      <td>1.0</td>
+      <td>Green Fork</td>
+      <td>The Riverlands</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Battle of the Whispering Wood</td>
+      <td>298</td>
+      <td>5</td>
+      <td>Robb Stark</td>
+      <td>Joffrey/Tommen Baratheon</td>
+      <td>Stark</td>
+      <td>Tully</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Lannister</td>
+      <td>...</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1875.0</td>
+      <td>6000.0</td>
+      <td>Robb Stark, Brynden Tully</td>
+      <td>Jaime Lannister</td>
+      <td>1.0</td>
+      <td>Whispering Wood</td>
+      <td>The Riverlands</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 23 columns</p>
+</div>
+
+
+
+
+```python
+deaths.head()
+```
+
+
+
+
+    Index(['Name', 'Allegiances', 'Death Year', 'Book of Death', 'Death Chapter',
+           'Book Intro Chapter', 'Gender', 'Nobility', 'GoT', 'CoK', 'SoS', 'FfC',
+           'DwD'],
+          dtype='object')
+
+
+
+
+```python
+predictions.head()
+```
+
+
+
+
+    Index(['S.No', 'actual', 'pred', 'alive', 'plod', 'name', 'title', 'male',
+           'culture', 'dateOfBirth', 'DateoFdeath', 'mother', 'father', 'heir',
+           'house', 'spouse', 'book1', 'book2', 'book3', 'book4', 'book5',
+           'isAliveMother', 'isAliveFather', 'isAliveHeir', 'isAliveSpouse',
+           'isMarried', 'isNoble', 'age', 'numDeadRelations', 'boolDeadRelations',
+           'isPopular', 'popularity', 'isAlive'],
+          dtype='object')
+
+
+
+### Basic Statistical Analysis of the data sets.
+
+
+```python
+battles.describe()
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>year</th>
+      <th>battle_number</th>
+      <th>major_death</th>
+      <th>major_capture</th>
+      <th>attacker_size</th>
+      <th>defender_size</th>
+      <th>summer</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>38.000000</td>
+      <td>38.000000</td>
+      <td>37.000000</td>
+      <td>37.000000</td>
+      <td>24.000000</td>
+      <td>19.000000</td>
+      <td>37.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>299.105263</td>
+      <td>19.500000</td>
+      <td>0.351351</td>
+      <td>0.297297</td>
+      <td>9942.541667</td>
+      <td>6428.157895</td>
+      <td>0.702703</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>0.689280</td>
+      <td>11.113055</td>
+      <td>0.483978</td>
+      <td>0.463373</td>
+      <td>20283.092065</td>
+      <td>6225.182106</td>
+      <td>0.463373</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>298.000000</td>
+      <td>1.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>20.000000</td>
+      <td>100.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>299.000000</td>
+      <td>10.250000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>1375.000000</td>
+      <td>1070.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>299.000000</td>
+      <td>19.500000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>4000.000000</td>
+      <td>6000.000000</td>
+      <td>1.000000</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>300.000000</td>
+      <td>28.750000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>8250.000000</td>
+      <td>10000.000000</td>
+      <td>1.000000</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>300.000000</td>
+      <td>38.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>100000.000000</td>
+      <td>20000.000000</td>
+      <td>1.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+Columns (defender_3, defender_4) are basically empty and irrelevant so we can drop them.
+
+
+```python
+battles = battles.drop(['defender_3', 'defender_4'],1)
+```
+
+
+```python
+deaths.describe()
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Death Year</th>
+      <th>Book of Death</th>
+      <th>Death Chapter</th>
+      <th>Book Intro Chapter</th>
+      <th>Gender</th>
+      <th>Nobility</th>
+      <th>GoT</th>
+      <th>CoK</th>
+      <th>SoS</th>
+      <th>FfC</th>
+      <th>DwD</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>305.000000</td>
+      <td>307.000000</td>
+      <td>299.000000</td>
+      <td>905.000000</td>
+      <td>917.000000</td>
+      <td>917.000000</td>
+      <td>917.000000</td>
+      <td>917.000000</td>
+      <td>917.000000</td>
+      <td>917.000000</td>
+      <td>917.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>299.157377</td>
+      <td>2.928339</td>
+      <td>40.070234</td>
+      <td>28.861878</td>
+      <td>0.828790</td>
+      <td>0.468920</td>
+      <td>0.272628</td>
+      <td>0.353326</td>
+      <td>0.424209</td>
+      <td>0.272628</td>
+      <td>0.284624</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>0.703483</td>
+      <td>1.326482</td>
+      <td>20.470270</td>
+      <td>20.165788</td>
+      <td>0.376898</td>
+      <td>0.499305</td>
+      <td>0.445554</td>
+      <td>0.478264</td>
+      <td>0.494492</td>
+      <td>0.445554</td>
+      <td>0.451481</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>297.000000</td>
+      <td>1.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>299.000000</td>
+      <td>2.000000</td>
+      <td>25.500000</td>
+      <td>11.000000</td>
+      <td>1.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>299.000000</td>
+      <td>3.000000</td>
+      <td>39.000000</td>
+      <td>27.000000</td>
+      <td>1.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>300.000000</td>
+      <td>4.000000</td>
+      <td>57.000000</td>
+      <td>43.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>300.000000</td>
+      <td>5.000000</td>
+      <td>80.000000</td>
+      <td>80.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+predictions.describe()
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>S.No</th>
+      <th>actual</th>
+      <th>pred</th>
+      <th>alive</th>
+      <th>plod</th>
+      <th>male</th>
+      <th>dateOfBirth</th>
+      <th>DateoFdeath</th>
+      <th>book1</th>
+      <th>book2</th>
+      <th>...</th>
+      <th>isAliveHeir</th>
+      <th>isAliveSpouse</th>
+      <th>isMarried</th>
+      <th>isNoble</th>
+      <th>age</th>
+      <th>numDeadRelations</th>
+      <th>boolDeadRelations</th>
+      <th>isPopular</th>
+      <th>popularity</th>
+      <th>isAlive</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>1946.000000</td>
+      <td>1946.000000</td>
+      <td>1946.000000</td>
+      <td>1946.000000</td>
+      <td>1946.000000</td>
+      <td>1946.000000</td>
+      <td>433.000000</td>
+      <td>444.000000</td>
+      <td>1946.000000</td>
+      <td>1946.000000</td>
+      <td>...</td>
+      <td>23.000000</td>
+      <td>276.000000</td>
+      <td>1946.000000</td>
+      <td>1946.000000</td>
+      <td>433.000000</td>
+      <td>1946.000000</td>
+      <td>1946.000000</td>
+      <td>1946.000000</td>
+      <td>1946.000000</td>
+      <td>1946.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>973.500000</td>
+      <td>0.745632</td>
+      <td>0.687050</td>
+      <td>0.634470</td>
+      <td>0.365530</td>
+      <td>0.619219</td>
+      <td>1577.364896</td>
+      <td>2950.193694</td>
+      <td>0.198356</td>
+      <td>0.374615</td>
+      <td>...</td>
+      <td>0.652174</td>
+      <td>0.778986</td>
+      <td>0.141829</td>
+      <td>0.460946</td>
+      <td>-1293.563510</td>
+      <td>0.305755</td>
+      <td>0.074512</td>
+      <td>0.059096</td>
+      <td>0.089584</td>
+      <td>0.745632</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>561.906131</td>
+      <td>0.435617</td>
+      <td>0.463813</td>
+      <td>0.312637</td>
+      <td>0.312637</td>
+      <td>0.485704</td>
+      <td>19565.414460</td>
+      <td>28192.245529</td>
+      <td>0.398864</td>
+      <td>0.484148</td>
+      <td>...</td>
+      <td>0.486985</td>
+      <td>0.415684</td>
+      <td>0.348965</td>
+      <td>0.498601</td>
+      <td>19564.340993</td>
+      <td>1.383910</td>
+      <td>0.262669</td>
+      <td>0.235864</td>
+      <td>0.160568</td>
+      <td>0.435617</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>1.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>-28.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>...</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>-298001.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>487.250000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.391250</td>
+      <td>0.101000</td>
+      <td>0.000000</td>
+      <td>240.000000</td>
+      <td>282.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>...</td>
+      <td>0.000000</td>
+      <td>1.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>18.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.013378</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>973.500000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>0.735500</td>
+      <td>0.264500</td>
+      <td>1.000000</td>
+      <td>268.000000</td>
+      <td>299.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>...</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>27.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.033445</td>
+      <td>1.000000</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>1459.750000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>0.899000</td>
+      <td>0.608750</td>
+      <td>1.000000</td>
+      <td>285.000000</td>
+      <td>299.000000</td>
+      <td>0.000000</td>
+      <td>1.000000</td>
+      <td>...</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>0.000000</td>
+      <td>1.000000</td>
+      <td>50.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.086957</td>
+      <td>1.000000</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>1946.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>298299.000000</td>
+      <td>298299.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>...</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>100.000000</td>
+      <td>15.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+    </tr>
+  </tbody>
+</table>
+<p>8 rows × 25 columns</p>
+</div>
+
+
+
+We will now see if we have any relationships between variables
+
+
+```python
+battles.corr()
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>year</th>
+      <th>battle_number</th>
+      <th>major_death</th>
+      <th>major_capture</th>
+      <th>attacker_size</th>
+      <th>defender_size</th>
+      <th>summer</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>year</th>
+      <td>1.000000</td>
+      <td>0.906781</td>
+      <td>-0.341050</td>
+      <td>-0.166234</td>
+      <td>0.155841</td>
+      <td>-0.366048</td>
+      <td>-0.841912</td>
+    </tr>
+    <tr>
+      <th>battle_number</th>
+      <td>0.906781</td>
+      <td>1.000000</td>
+      <td>-0.270421</td>
+      <td>-0.105225</td>
+      <td>0.086418</td>
+      <td>-0.297730</td>
+      <td>-0.799090</td>
+    </tr>
+    <tr>
+      <th>major_death</th>
+      <td>-0.341050</td>
+      <td>-0.270421</td>
+      <td>1.000000</td>
+      <td>0.264464</td>
+      <td>0.267966</td>
+      <td>0.081815</td>
+      <td>0.337136</td>
+    </tr>
+    <tr>
+      <th>major_capture</th>
+      <td>-0.166234</td>
+      <td>-0.105225</td>
+      <td>0.264464</td>
+      <td>1.000000</td>
+      <td>0.331961</td>
+      <td>0.249510</td>
+      <td>0.142112</td>
+    </tr>
+    <tr>
+      <th>attacker_size</th>
+      <td>0.155841</td>
+      <td>0.086418</td>
+      <td>0.267966</td>
+      <td>0.331961</td>
+      <td>1.000000</td>
+      <td>-0.112118</td>
+      <td>-0.273054</td>
+    </tr>
+    <tr>
+      <th>defender_size</th>
+      <td>-0.366048</td>
+      <td>-0.297730</td>
+      <td>0.081815</td>
+      <td>0.249510</td>
+      <td>-0.112118</td>
+      <td>1.000000</td>
+      <td>0.347108</td>
+    </tr>
+    <tr>
+      <th>summer</th>
+      <td>-0.841912</td>
+      <td>-0.799090</td>
+      <td>0.337136</td>
+      <td>0.142112</td>
+      <td>-0.273054</td>
+      <td>0.347108</td>
+      <td>1.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+ml.figure(figsize=(20,10)) 
+sn.heatmap(battles.corr(),annot=True)
+```
+
+
+
+
+    <matplotlib.axes._subplots.AxesSubplot at 0xba67550>
+
+
+
+
+![png](./images/got/output_19_1.png)
+
+
+There seems to be no correlation between any variables
+
+
+```python
+deaths.corr()
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Death Year</th>
+      <th>Book of Death</th>
+      <th>Death Chapter</th>
+      <th>Book Intro Chapter</th>
+      <th>Gender</th>
+      <th>Nobility</th>
+      <th>GoT</th>
+      <th>CoK</th>
+      <th>SoS</th>
+      <th>FfC</th>
+      <th>DwD</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Death Year</th>
+      <td>1.000000</td>
+      <td>0.832274</td>
+      <td>-0.068763</td>
+      <td>0.051674</td>
+      <td>-0.135058</td>
+      <td>0.042457</td>
+      <td>-0.439234</td>
+      <td>0.077509</td>
+      <td>0.313062</td>
+      <td>0.357204</td>
+      <td>0.550213</td>
+    </tr>
+    <tr>
+      <th>Book of Death</th>
+      <td>0.832274</td>
+      <td>1.000000</td>
+      <td>-0.207666</td>
+      <td>0.016975</td>
+      <td>-0.111461</td>
+      <td>0.017475</td>
+      <td>-0.434004</td>
+      <td>-0.131860</td>
+      <td>0.350095</td>
+      <td>0.340436</td>
+      <td>0.714574</td>
+    </tr>
+    <tr>
+      <th>Death Chapter</th>
+      <td>-0.068763</td>
+      <td>-0.207666</td>
+      <td>1.000000</td>
+      <td>0.388283</td>
+      <td>-0.086533</td>
+      <td>0.075943</td>
+      <td>0.126657</td>
+      <td>0.012939</td>
+      <td>-0.149095</td>
+      <td>-0.167285</td>
+      <td>-0.145384</td>
+    </tr>
+    <tr>
+      <th>Book Intro Chapter</th>
+      <td>0.051674</td>
+      <td>0.016975</td>
+      <td>0.388283</td>
+      <td>1.000000</td>
+      <td>0.058684</td>
+      <td>-0.068825</td>
+      <td>0.129241</td>
+      <td>0.002445</td>
+      <td>0.158419</td>
+      <td>-0.146165</td>
+      <td>-0.077509</td>
+    </tr>
+    <tr>
+      <th>Gender</th>
+      <td>-0.135058</td>
+      <td>-0.111461</td>
+      <td>-0.086533</td>
+      <td>0.058684</td>
+      <td>1.000000</td>
+      <td>-0.060213</td>
+      <td>0.070228</td>
+      <td>0.063424</td>
+      <td>-0.049199</td>
+      <td>-0.040289</td>
+      <td>-0.046924</td>
+    </tr>
+    <tr>
+      <th>Nobility</th>
+      <td>0.042457</td>
+      <td>0.017475</td>
+      <td>0.075943</td>
+      <td>-0.068825</td>
+      <td>-0.060213</td>
+      <td>1.000000</td>
+      <td>0.087201</td>
+      <td>0.055179</td>
+      <td>0.046825</td>
+      <td>0.146088</td>
+      <td>-0.001880</td>
+    </tr>
+    <tr>
+      <th>GoT</th>
+      <td>-0.439234</td>
+      <td>-0.434004</td>
+      <td>0.126657</td>
+      <td>0.129241</td>
+      <td>0.070228</td>
+      <td>0.087201</td>
+      <td>1.000000</td>
+      <td>0.121257</td>
+      <td>0.004696</td>
+      <td>-0.088852</td>
+      <td>-0.120242</td>
+    </tr>
+    <tr>
+      <th>CoK</th>
+      <td>0.077509</td>
+      <td>-0.131860</td>
+      <td>0.012939</td>
+      <td>0.002445</td>
+      <td>0.063424</td>
+      <td>0.055179</td>
+      <td>0.121257</td>
+      <td>1.000000</td>
+      <td>-0.002049</td>
+      <td>-0.083669</td>
+      <td>-0.107276</td>
+    </tr>
+    <tr>
+      <th>SoS</th>
+      <td>0.313062</td>
+      <td>0.350095</td>
+      <td>-0.149095</td>
+      <td>0.158419</td>
+      <td>-0.049199</td>
+      <td>0.046825</td>
+      <td>0.004696</td>
+      <td>-0.002049</td>
+      <td>1.000000</td>
+      <td>-0.074585</td>
+      <td>-0.013294</td>
+    </tr>
+    <tr>
+      <th>FfC</th>
+      <td>0.357204</td>
+      <td>0.340436</td>
+      <td>-0.167285</td>
+      <td>-0.146165</td>
+      <td>-0.040289</td>
+      <td>0.146088</td>
+      <td>-0.088852</td>
+      <td>-0.083669</td>
+      <td>-0.074585</td>
+      <td>1.000000</td>
+      <td>-0.109387</td>
+    </tr>
+    <tr>
+      <th>DwD</th>
+      <td>0.550213</td>
+      <td>0.714574</td>
+      <td>-0.145384</td>
+      <td>-0.077509</td>
+      <td>-0.046924</td>
+      <td>-0.001880</td>
+      <td>-0.120242</td>
+      <td>-0.107276</td>
+      <td>-0.013294</td>
+      <td>-0.109387</td>
+      <td>1.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+ml.figure(figsize=(20,10)) 
+sn.heatmap(deaths.corr(),annot=True)
+```
+
+
+
+
+    <matplotlib.axes._subplots.AxesSubplot at 0xc42de10>
+
+
+
+
+![png](./images/got/output_22_1.png)
+
+
+There seems to be a decent correlation between the Death Year and Book (DWD) Dancing with Dragons and Book of Death.
+
+### Battles
+
+When we look at the battles lets see who is winning.
+
+
+```python
+ml.figure(figsize = (15,10))
+sn.countplot(x='attacker_outcome',data = battles)
+```
+
+
+
+
+    <matplotlib.axes._subplots.AxesSubplot at 0xbb6cd30>
+
+
+
+
+![png](./images/got/output_26_1.png)
+
+
+We can say chances are if you start a battle you will likely win. Which makes sense, because one would never start a battle if they did not feel more than prepared. Also you would never attack your opponent when they expect it.
+
+
+```python
+ml.figure(figsize = (15,10))
+attack = pd.DataFrame(battles.groupby("attacker_king").size().sort_values())
+attack = attack.rename(columns = {0:'Battle'})
+attack.plot(kind='bar')
+```
+
+
+
+
+    <matplotlib.axes._subplots.AxesSubplot at 0xbda3dd8>
+
+
+
+
+    <Figure size 1080x720 with 0 Axes>
+
+
+
+![png](./images/got/output_28_2.png)
+
+
+If you have watched the series you will not be surprised by this. I am still surprised that Robb Stark had that many battles that he started
+
+
+```python
+ml.figure(figsize = (15,10))
+attack = pd.DataFrame(battles.groupby("defender_king").size().sort_values())
+attack = attack.rename(columns = {0:'Defenece'})
+attack.plot(kind='bar')
+```
+
+
+
+
+    <matplotlib.axes._subplots.AxesSubplot at 0xc75b550>
+
+
+
+
+    <Figure size 1080x720 with 0 Axes>
+
+
+
+![png](./images/got/output_30_2.png)
+
+
+The Baratheon's seemed to be able to give as good as they get. Again Surprised Robb had to defend himself so many times considering he was so close to the North.
+
+We will now look at the various win loss ratios.
+
+
+```python
+ml.figure(figsize = (15,10))
+sn.countplot(x='attacker_king', hue = 'attacker_outcome', data = battles)
+
+```
+
+
+
+
+    <matplotlib.axes._subplots.AxesSubplot at 0xccc4400>
+
+
+
+
+![png](./images/got/output_33_1.png)
+
+
+Everyone had decent win ratios bar Stannis Baratheon.
+
+
+```python
+ml.figure(figsize = (15,10))
+sn.countplot(x='attacker_outcome', hue= 'battle_type', data = battles)
+ml.legend(bbox_to_anchor=(1, 1), loc=2)
+```
+
+
+
+
+    <matplotlib.legend.Legend at 0x10dfd780>
+
+
+
+
+![png](./images/got/output_35_1.png)
+
+
+Seems like sieges and razings had a best success ratios, 100%, whereas pitched battles were nearly 50/50.
+
+
+```python
+ml.figure(figsize = (15,10))
+sn.countplot(x='year', data = battles)
+```
+
+
+
+
+    <matplotlib.axes._subplots.AxesSubplot at 0x10bc2128>
+
+
+
+
+![png](./images/got/output_37_1.png)
+
+
+The year 299 had the battles. Why? I do not know.
