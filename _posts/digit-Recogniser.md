@@ -3,7 +3,7 @@ title: "Machine Learning Project: Digit Recogniser (Kaggle)"
 date: 2018-10-24
 tags: [machine learning, data science, kaggle, MINST]
 header:
-  image: "/images/perceptron/percept.jpg"
+  image: "/images/digit-recogniser/header.jpg"
 excerpt: "Machine Learning, Data Science, MINST"
 mathjax: "true"
 ---
