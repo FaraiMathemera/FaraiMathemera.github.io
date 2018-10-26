@@ -7,6 +7,7 @@ header:
 excerpt: "Machine Learning, Data Science, MINST"
 mathjax: "true"
 ---
+
 # Tensorflow implementation of digit recognition
 
 Data from Kaggle Digit Recognition competition  
