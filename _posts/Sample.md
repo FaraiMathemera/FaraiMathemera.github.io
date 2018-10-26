@@ -1,5 +1,5 @@
 ---
-title: "Machine Learning Project: Perception"
+title: "Machine Learning Project: Perceptron"
 date: 2018-10-24
 tags: [machine learning, data science, kaggle]
 header:
