@@ -414,7 +414,7 @@ for i in range(0,9):
 ```
 
 
-![png](./images/digit-recogniser/output_10_0.png)
+![alt]({{ site.url }}{{ site.baseurl }}/images/digit-recogniser/output_10_0.png)
 
 
 ## Preprocess data for NN
@@ -771,7 +771,7 @@ plt.legend()
 
 
 
-![png](./images/recogniser/output_24_1.png)
+![alt]({{ site.url }}{{ site.baseurl }}/images/recogniser/output_24_1.png)
 
 
 Some conclusions here: 

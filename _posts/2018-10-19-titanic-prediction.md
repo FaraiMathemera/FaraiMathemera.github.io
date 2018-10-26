@@ -22,7 +22,7 @@ In this section, we'll do the following:
 from IPython.core.display import HTML
 HTML("""
 <style>
-../images/titanic/output_png {
+![alt]({{ site.url }}{{ site.baseurl }}../images/titanic/output_png) {
     display: table-cell;
     text-align: center;
     vertical-align: middle;
@@ -528,7 +528,7 @@ data.groupby('Sex').agg('sum')[['Survived', 'Died']].plot(kind='bar', figsize=(2
 ```
 
 
-![png](./images/titanic/output_22_0.png)
+![alt]({{ site.url }}{{ site.baseurl }}/images/titanic/output_22_0.png)
 
 
 (./images/article_1/1.png)
@@ -543,7 +543,7 @@ data.groupby('Sex').agg('mean')[['Survived', 'Died']].plot(kind='bar', figsize=(
 ```
 
 
-![png](./images/titanic/output_25_0.png)
+![alt]({{ site.url }}{{ site.baseurl }}/images/titanic/output_25_0.png)
 
 
 ![energy](./images/article_1/2.png)
@@ -563,7 +563,7 @@ sns.violinplot(x='Sex', y='Age',
 ```
 
 
-![png](./images/titanic/output_29_0.png)
+![alt]({{ site.url }}{{ site.baseurl }}/images/titanic/output_29_0.png)
 
 
 ![energy](./images/article_1/3.png)
@@ -592,7 +592,7 @@ plt.legend();
 ```
 
 
-![png](./images/titanic/output_33_0.png)
+![alt]({{ site.url }}{{ site.baseurl }}/images/titanic/output_33_0.png)
 
 
 ![energy](./images/article_1/4.png)
@@ -610,7 +610,7 @@ data.groupby('Pclass').mean()['Fare'].plot(kind='bar', figsize=(25, 7), ax = ax)
 ```
 
 
-![png](./images/titanic/output_37_0.png)
+![alt]({{ site.url }}{{ site.baseurl }}/images/titanic/output_37_0.png)
 
 
 ![energy](./images/article_1/6.png)
@@ -624,7 +624,7 @@ sns.violinplot(x='Embarked', y='Fare', hue='Survived', data=data, split=True, pa
 ```
 
 
-![png](./images/titanic/output_40_0.png)
+![alt]({{ site.url }}{{ site.baseurl }}/images/titanic/output_40_0.png)
 
 
 ![energy](./images/article_1/7.png)
@@ -2562,7 +2562,7 @@ features.plot(kind='barh', figsize=(25, 25))
 
 
 
-![png](./images/titanic/output_139_1.png)
+![alt]({{ site.url }}{{ site.baseurl }}/images/titanic/output_139_1.png)
 
 
 ![energy](./images/article_1/8.png)

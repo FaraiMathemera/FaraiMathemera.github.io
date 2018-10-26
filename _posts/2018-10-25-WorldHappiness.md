@@ -250,7 +250,7 @@ stats16.groupby('Region').agg('count')[['Happiness Rank']].plot(kind='bar', figs
 ```
 
 
-![png](./images/worldhappiness/output_11_0.png)
+![alt]({{ site.url }}{{ site.baseurl }}/images/worldhappiness/output_11_0.png)
 
 
 We can see that Africa and Central and Eastern Europe have the highest numder of countries.
@@ -270,7 +270,7 @@ ml.xticks(rotation=-45)
 
 
 
-![png](./images/worldhappiness/output_13_1.png)
+![alt]({{ site.url }}{{ site.baseurl }}/images/worldhappiness/output_13_1.png)
 
 
 We can see that Africa has the highest mean, with Australia/New Zealand and North America having the lowest.
@@ -292,7 +292,7 @@ sn.heatmap(stats16.corr(), annot=True)
 
 
 
-![png](./images/worldhappiness/output_16_1.png)
+![alt]({{ site.url }}{{ site.baseurl }}/images/worldhappiness/output_16_1.png)
 
 
 There is a high correlation between Economy and Happiness score. Life Expectancy and Economy.
@@ -311,5 +311,5 @@ sn.pairplot(stats16[['Happiness Score','Economy (GDP per Capita)','Family','Heal
 
 
 
-![png](./images/worldhappiness/output_18_1.png)
+![alt]({{ site.url }}{{ site.baseurl }}/images/worldhappiness/output_18_1.png)
 
