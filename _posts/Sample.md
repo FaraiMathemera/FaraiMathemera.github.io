@@ -1,5 +1,5 @@
 ---
-title: "Sample"
+title: "Machine Learning Project: Perception"
 date: 2018-10-24
 tags: [machine learning, data science, kaggle]
 header:
