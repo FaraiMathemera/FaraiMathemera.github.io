@@ -3,7 +3,7 @@ title: "Data Analysis: World Happiness Report (Fun)"
 date: 2018-10-24
 tags: [data analysis, data science, kaggle, Game of Thrones]
 header:
-  image: "/images/worldhappiness/header.jpg"
+  image: ""
 excerpt: "data analysis, Data Science, Game of Thrones"
 mathjax: "true"
 ---

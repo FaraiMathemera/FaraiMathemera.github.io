@@ -3,7 +3,7 @@ title: "Machine Learning Project: Titanic (Kaggle)"
 date: 2018-10-24
 tags: [machine learning, data science, kaggle]
 header:
-  image: "/images/titanic/header.jpg"
+  image: ""
 excerpt: "Machine Learning, Data Science, Kaggle"
 mathjax: "true"
 ---
