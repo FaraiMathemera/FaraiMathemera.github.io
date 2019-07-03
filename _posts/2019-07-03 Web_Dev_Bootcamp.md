@@ -22,6 +22,6 @@ experience, hopefully I will be able to apply my newly acquired skills in the fu
 
 The program helped create a simple but powerful signin, login and profile editing application used on most modern websites.
 
-[a link](https://github.com/FaraiMathemera/Zaio_Projects/tree/master/User%20Profile)
+[Zaio profile app] (https://github.com/FaraiMathemera/Zaio_Projects/tree/master/User%20Profile)
 
 Its been a very interesting and fulfilling journey on this platform (Zaio).
