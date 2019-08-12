@@ -52,7 +52,14 @@ function myFunction12() {
 
 //Global variables for cart quantity
 var quantity = 0;
-//Function to increase number in cart
+//Set accessibility
+var viewMode = getCookie("view-mode");
+if(viewMode == "desktop"){
+    viewport.setAttribute('content', 'width=1024');
+}else if (viewMode == "mobile"){
+    viewport.setAttribute('content', 'width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no');
+	
+}//Function to increase number in cart
 function myFunctionadd() {
   quantity = quantity + 1;
   document.getElementById("quantity").innerHTML = quantity;
