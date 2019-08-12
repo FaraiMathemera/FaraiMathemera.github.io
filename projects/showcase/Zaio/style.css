@@ -1,7 +1,7 @@
 body {
   background-image: url(Tinder-logo.jpg);
   background-size: cover;
-  padding: 5% 20%;
+  padding: 5% 15%;
 }
  /* Main Heading */
 hs {
@@ -42,23 +42,9 @@ a1{
 }
 
 nounderline {
-  text-decoration: none !important
+  text-decoration: none !important;
 }
 
-
-card1{
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-  transition: 0.3s;
-  width: 120%;
-  height: 180%;
-  text-align: center;
-  padding: 50% 20%;
-}
-
-container {
-  padding: 100px 100px;
-  
-}
  /* Button for add stuff to cart  */
 .buttoncart { 
   color: white;
@@ -199,4 +185,3 @@ div3 {
 hr { display: block; height: 2px;
     border: 0; border-top: 2px solid #000000;
     margin: 1em 0; padding: 0; }
-
