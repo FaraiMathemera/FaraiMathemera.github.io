@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>HTML-CSS & JS Challenge</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="js.js"></script>
+</head>
+<body>
+<div class="container">
+
+	<hs>HICKIES Original</hs>
+	
+	<!-- Review Section-->
+	<label>
+	<span class="fa fa-star checked"></span>
+	<span class="fa fa-star checked"></span>
+	<span class="fa fa-star checked"></span>
+	<span class="fa fa-star"></span>
+	<span class="fa fa-star"></span>
+	<a href=""><a1 href ="" class="link">1,293 Reviews</a1></a></label>
+	<!-- SEnd of Review Section-->
+	
+	<div>
+	<labelPrice><strong>$14.99</strong></labelPrice><labelLight>$17.99</labelLight><labelLight>25% OFF</labelLight>
+	</div>
+	<div>
+	<label>ONLINE EXCLUSIVE</label>
+	</div>
+	<div>
+	<label><strong>COLOR:</strong></label><label id="colour">Arctic White</label>
+	</div>
+	<!-- Start of colour Selector-->
+	<div>
+	<button id="colour1" class="button1" style="background-color:white;" onclick="myFunction1()"></button><button id="colour2" class="button1" style="background-color:honeydew;" onclick="myFunction2()"></button>
+	<button id="colour3" class="button1" style="background-color:coral;" onclick="myFunction3()"></button><button id="colour4" class="button1" style="background-color:salmon;" onclick="myFunction4()"></button>
+	<button id="colour5" class="button1" style="background-color:fuchsia;" onclick="myFunction5()"></button><button id="colour6" class="button1" style="background-color:springgreen;" onclick="myFunction6()"></button>
+	<button id="colour7" class="button1" style="background-color:rosybrown;" onclick="myFunction7()"></button><button id="colour8" class="button1" style="background-color:silver;" onclick="myFunction8()"></button>
+	<button id="colour9" class="button1" style="background-color:peru;" onclick="myFunction9()"></button><button id="colour10" class="button1" style="background-color:sienna;" onclick="myFunction10()"></button>
+	<button id="colour11" class="button1" style="background-color:navy;" onclick="myFunction11()"></button><button id="colour12" class="button1" style="background-color:black;" onclick="myFunction12()"></button>
+	</div>
+	<!-- End of Modal content-->
+	<div>
+	<label>Size Guide</label><br>
+	<label>Your Custom Fit</label>
+	</div>
+	<div>
+	<buttonnumber class="button" id="quantity1">0</buttonnumber>
+	<button class="buttoncart" id="cart" data-toggle="modal" data-target="#myModal">Add to Cart</buttoncart>
+	</div>
+	
+	
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog" style="width:900px;">
+    
+      <!-- Start of Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h2>Please add the quantity of the item you selected</h2>
+        </div>
+        <div class="modal-body">
+		<!-- increase and decrease buttons-->
+        <label id="modalcolour"></label><button id="add" class="buttonModal" style="background-color:black;" onclick="myFunctionminus()"> - </button><label id="quantity">0</label><button id="minus" class="buttonModal" style="background-color:black;" onclick="myFunctionadd()"> + </button>
+		<!-- End of quantity buttons-->
+        </div>
+        <div class="modal-footer">
+		  <button type="button" class="modalbutton" data-dismiss="modal" style="background-color:green;" onclick="myFunctionAgree()">Agree</button>
+          <button type="button" class="modalbutton" data-dismiss="modal" style="background-color:red;" onclick="myFunctionCancel()">Cancel</button>
+        </div>
+      </div>
+	  <!-- End of modal content--> 
+    </div>
+	
+  </div>
+  <!-- End of Modal -->
+	<hr>
+	<div>
+	<label>DETAILS</label>
+	</div>
+	<hr>
+	<div>
+	
+	<label>Need Help?</label><br>
+	<label>Shipping & Returns</label>
+	</div>
+	
+
+</div>
+</body>
+</html>
