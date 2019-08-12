@@ -1,7 +1,5 @@
 body {
-  background-image: url(Tinder-logo.jpg);
-  background-size: cover;
-  padding: 5% 15%;
+  padding: 5% 5%;
 }
  /* Main Heading */
 hs {
@@ -17,7 +15,7 @@ h4 {
   color: black;
   margin-left: 20%;
   text-align: center;
-  font-size: 8rem;
+  font-size: 4rem;
   font-weight: bold;
   padding-bottom: 10%;
 }
@@ -70,20 +68,17 @@ buttonnumber {
   text-decoration: none;
 }
 
-html{
-zoom: 110%;}
-
 input{ 
   border-radius: 20px;
   border-style: solid;
   border-color: LightGrey;
-  padding: 5% 40%;
+  padding: 5% 5%;
   border-width: thin;
   box-shadow: 1% 1% 2%;
 }
 
 input1{ 
-  padding: 5% 40%;
+  padding: 5% 5%;
   border-width: thin;
   background-image: url("exit.png");
   background-repeat: no-repeat;
@@ -153,7 +148,7 @@ div {
    display: block;
   margin: 0 auto;
    padding-top: 5%;
-   padding-bottom: 3%;
+   padding-bottom: 4%;
    text-align:left;
 }
  /* Sections */
@@ -184,4 +179,4 @@ div3 {
  /* Line break */
 hr { display: block; height: 2px;
     border: 0; border-top: 2px solid #000000;
-    margin: 1em 0; padding: 0; }
+    margin: 0.1em 0; padding: 0; }
